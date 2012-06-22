@@ -1,0 +1,3 @@
+--- 
+4b300c: !ruby/object:Dooby::Task 
+  todo: create an account with day's generate_userlist :done

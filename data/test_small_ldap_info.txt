@@ -1,0 +1,631 @@
+# extended LDIF
+#
+# LDAPv3
+# base <ou=Riec,o=TohokuUNV,c=JP> with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# Riec, TohokuUNV, JP
+dn: ou=Riec,o=TohokuUNV,c=JP
+objectClass: top
+objectClass: organizationalUnit
+ou: Riec
+
+# profile, Riec, TohokuUNV, JP
+dn: ou=profile,ou=Riec,o=TohokuUNV,c=JP
+objectClass: organizationalUnit
+objectClass: top
+ou: "profile"
+ou: profile
+
+# proxyagent, profile, Riec, TohokuUNV, JP
+dn: cn=proxyagent,ou=profile,ou=Riec,o=TohokuUNV,c=JP
+cn: "proxyagent"
+cn: proxyagent
+objectClass: person
+objectClass: top
+sn: proxyagent
+
+# ldapAdminGroup, Riec, TohokuUNV, JP
+dn: cn=ldapAdminGroup,ou=Riec,o=TohokuUNV,c=JP
+cn: ldapAdminGroup
+objectClass: groupOfUniqueNames
+objectClass: top
+uniqueMember: cn=ldapAdministrator,ou=Riec,o=TohokuUNV,c=JP
+
+# ldapAdministrator, Riec, TohokuUNV, JP
+dn: cn=ldapAdministrator,ou=Riec,o=TohokuUNV,c=JP
+cn: ldapAdministrator
+objectClass: person
+objectClass: top
+sn: ldapAdministrator
+
+# ldapOperatorGroup, Riec, TohokuUNV, JP
+dn: cn=ldapOperatorGroup,ou=Riec,o=TohokuUNV,c=JP
+cn: ldapOperatorGroup
+objectClass: groupOfUniqueNames
+objectClass: top
+uniqueMember: cn=ldapAdministrator,ou=Riec,o=TohokuUNV,c=JP
+uniqueMember: cn=proxyagent,ou=profile,ou=Riec,o=TohokuUNV,c=JP
+
+# group, Riec, TohokuUNV, JP
+dn: ou=group,ou=Riec,o=TohokuUNV,c=JP
+objectClass: organizationalUnit
+objectClass: top
+ou: group
+
+# adachi, group, Riec, TohokuUNV, JP
+dn: cn=adachi,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: adachi
+gidNumber: 172
+objectClass: posixGroup
+objectClass: top
+
+# ais, group, Riec, TohokuUNV, JP
+dn: cn=ais,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: ais
+gidNumber: 114
+objectClass: posixGroup
+objectClass: top
+
+# anzen, group, Riec, TohokuUNV, JP
+dn: cn=anzen,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: anzen
+gidNumber: 175
+objectClass: posixGroup
+objectClass: top
+
+# aoki, group, Riec, TohokuUNV, JP
+dn: cn=aoki,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: aoki
+gidNumber: 176
+objectClass: posixGroup
+objectClass: top
+
+# audit, group, Riec, TohokuUNV, JP
+dn: cn=audit,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: audit
+gidNumber: 9
+objectClass: posixGroup
+objectClass: top
+
+# canna, group, Riec, TohokuUNV, JP
+dn: cn=canna,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: canna
+gidNumber: 99
+objectClass: posixGroup
+objectClass: top
+
+# cmplx, group, Riec, TohokuUNV, JP
+dn: cn=cmplx,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: cmplx
+gidNumber: 181
+objectClass: posixGroup
+objectClass: top
+
+# csis, group, Riec, TohokuUNV, JP
+dn: cn=csis,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: csis
+gidNumber: 171
+objectClass: posixGroup
+objectClass: top
+
+# cyber, group, Riec, TohokuUNV, JP
+dn: cn=cyber,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: cyber
+gidNumber: 173
+objectClass: posixGroup
+objectClass: top
+
+# edamatsu, group, Riec, TohokuUNV, JP
+dn: cn=edamatsu,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: edamatsu
+gidNumber: 149
+objectClass: posixGroup
+objectClass: top
+
+# endoh, group, Riec, TohokuUNV, JP
+dn: cn=endoh,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: endoh
+gidNumber: 151
+objectClass: posixGroup
+objectClass: top
+
+# factory, group, Riec, TohokuUNV, JP
+dn: cn=factory,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: factory
+gidNumber: 136
+objectClass: posixGroup
+objectClass: top
+
+# fir, group, Riec, TohokuUNV, JP
+dn: cn=fir,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: fir
+gidNumber: 100
+objectClass: posixGroup
+objectClass: top
+
+# ftc, group, Riec, TohokuUNV, JP
+dn: cn=ftc,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: ftc
+gidNumber: 165
+objectClass: posixGroup
+objectClass: top
+
+# ftp, group, Riec, TohokuUNV, JP
+dn: cn=ftp,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: ftp
+gidNumber: 91
+objectClass: posixGroup
+objectClass: top
+
+# gijutubu, group, Riec, TohokuUNV, JP
+dn: cn=gijutubu,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: gijutubu
+gidNumber: 157
+objectClass: posixGroup
+objectClass: top
+
+# hanyu, group, Riec, TohokuUNV, JP
+dn: cn=hanyu,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: hanyu
+gidNumber: 146
+objectClass: posixGroup
+objectClass: top
+
+# icd, group, Riec, TohokuUNV, JP
+dn: cn=icd,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: icd
+gidNumber: 152
+objectClass: posixGroup
+objectClass: top
+
+# inutake, group, Riec, TohokuUNV, JP
+dn: cn=inutake,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: inutake
+gidNumber: 158
+objectClass: posixGroup
+objectClass: top
+
+# ishiyama, group, Riec, TohokuUNV, JP
+dn: cn=ishiyama,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: ishiyama
+gidNumber: 101
+objectClass: posixGroup
+objectClass: top
+
+# it21, group, Riec, TohokuUNV, JP
+dn: cn=it21,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: it21
+gidNumber: 148
+objectClass: posixGroup
+objectClass: top
+
+# itk, group, Riec, TohokuUNV, JP
+dn: cn=itk,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: itk
+gidNumber: 166
+objectClass: posixGroup
+objectClass: top
+
+# itm, group, Riec, TohokuUNV, JP
+dn: cn=itm,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: itm
+gidNumber: 167
+objectClass: posixGroup
+objectClass: top
+
+# shimatsu, group, Riec, TohokuUNV, JP
+dn: cn=shimatsu,ou=group,ou=Riec,o=TohokuUNV,c=JP
+gidNumber: 168
+objectClass: posixGroup
+objectClass: top
+cn: shimatsu
+
+# jimu, group, Riec, TohokuUNV, JP
+dn: cn=jimu,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: jimu
+gidNumber: 132
+objectClass: posixGroup
+objectClass: top
+
+# jm-iinkai, group, Riec, TohokuUNV, JP
+dn: cn=jm-iinkai,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: jm-committee
+cn: jm-iinkai
+gidNumber: 178
+objectClass: posixGroup
+objectClass: top
+
+# jm-jimu, group, Riec, TohokuUNV, JP
+dn: cn=jm-jimu,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: jm-jimu
+gidNumber: 177
+objectClass: posixGroup
+objectClass: top
+
+# jm-prof, group, Riec, TohokuUNV, JP
+dn: cn=jm-prof,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: jm-prof
+gidNumber: 179
+objectClass: posixGroup
+objectClass: top
+
+# jm-user, group, Riec, TohokuUNV, JP
+dn: cn=jm-user,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: jm-user
+gidNumber: 180
+objectClass: posixGroup
+objectClass: top
+
+# kaiseki, group, Riec, TohokuUNV, JP
+dn: cn=kaiseki,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: kaiseki
+gidNumber: 129
+objectClass: posixGroup
+objectClass: top
+
+# kato, group, Riec, TohokuUNV, JP
+dn: cn=kato,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: kato
+gidNumber: 164
+objectClass: posixGroup
+objectClass: top
+
+# kinosita, group, Riec, TohokuUNV, JP
+dn: cn=kinosita,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: kinosita
+gidNumber: 145
+objectClass: posixGroup
+objectClass: top
+
+# kitagata, group, Riec, TohokuUNV, JP
+dn: cn=kitagata,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: kitagata
+gidNumber: 163
+objectClass: posixGroup
+objectClass: top
+
+# kmem, group, Riec, TohokuUNV, JP
+dn: cn=kmem,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: kmem
+gidNumber: 2
+objectClass: posixGroup
+objectClass: top
+
+# mail, group, Riec, TohokuUNV, JP
+dn: cn=mail,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: mail
+gidNumber: 6
+objectClass: posixGroup
+objectClass: top
+
+# masui, group, Riec, TohokuUNV, JP
+dn: cn=masui,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: masui
+gidNumber: 161
+objectClass: posixGroup
+objectClass: top
+
+# matsuoka, group, Riec, TohokuUNV, JP
+dn: cn=matsuoka,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: matsuoka
+gidNumber: 169
+objectClass: posixGroup
+objectClass: top
+
+# mizuno, group, Riec, TohokuUNV, JP
+dn: cn=mizuno,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: mizuno
+gidNumber: 107
+objectClass: posixGroup
+objectClass: top
+
+# muraoka, group, Riec, TohokuUNV, JP
+dn: cn=muraoka,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: muraoka
+gidNumber: 143
+objectClass: posixGroup
+objectClass: top
+
+# murota, group, Riec, TohokuUNV, JP
+dn: cn=murota,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: murota
+gidNumber: 121
+objectClass: posixGroup
+objectClass: top
+
+# nakajima, group, Riec, TohokuUNV, JP
+dn: cn=nakajima,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: nakajima
+gidNumber: 135
+objectClass: posixGroup
+objectClass: top
+
+# nakamura, group, Riec, TohokuUNV, JP
+dn: cn=nakamura,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: nakamura
+gidNumber: 108
+objectClass: posixGroup
+objectClass: top
+
+# nakazawa, group, Riec, TohokuUNV, JP
+dn: cn=nakazawa,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: nakazawa
+gidNumber: 144
+objectClass: posixGroup
+objectClass: top
+
+# nanospin, group, Riec, TohokuUNV, JP
+dn: cn=nanospin,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: nanospin
+gidNumber: 138
+objectClass: posixGroup
+objectClass: top
+
+# net, group, Riec, TohokuUNV, JP
+dn: cn=net,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: net
+gidNumber: 112
+objectClass: posixGroup
+objectClass: top
+
+# niwano, group, Riec, TohokuUNV, JP
+dn: cn=niwano,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: niwano
+gidNumber: 140
+objectClass: posixGroup
+objectClass: top
+
+# nozokido, group, Riec, TohokuUNV, JP
+dn: cn=nozokido,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: nozokido
+gidNumber: 153
+objectClass: posixGroup
+objectClass: top
+
+# nue, group, Riec, TohokuUNV, JP
+dn: cn=nue,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: nue
+gidNumber: 142
+objectClass: posixGroup
+objectClass: top
+
+# ohno, group, Riec, TohokuUNV, JP
+dn: cn=ohno,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: ohno
+gidNumber: 131
+objectClass: posixGroup
+objectClass: top
+
+# ohori, group, Riec, TohokuUNV, JP
+dn: cn=ohori,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: ohori
+gidNumber: 156
+objectClass: posixGroup
+objectClass: top
+
+# ooya, group, Riec, TohokuUNV, JP
+dn: cn=ooya,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: ooya
+gidNumber: 120
+objectClass: posixGroup
+objectClass: top
+
+# operator, group, Riec, TohokuUNV, JP
+dn: cn=operator,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: operator
+gidNumber: 5
+objectClass: posixGroup
+objectClass: top
+
+# other, group, Riec, TohokuUNV, JP
+dn: cn=other,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: other
+gidNumber: 200
+objectClass: posixGroup
+objectClass: top
+
+# otsuji, group, Riec, TohokuUNV, JP
+dn: cn=otsuji,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: otsuji
+gidNumber: 155
+objectClass: posixGroup
+objectClass: top
+
+# rcais, group, Riec, TohokuUNV, JP
+dn: cn=rcais,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: rcais
+gidNumber: 122
+objectClass: posixGroup
+objectClass: top
+
+# real, group, Riec, TohokuUNV, JP
+dn: cn=real,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: real
+gidNumber: 174
+objectClass: posixGroup
+objectClass: top
+
+# roec, group, Riec, TohokuUNV, JP
+dn: cn=roec,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: roec
+gidNumber: 182
+objectClass: posixGroup
+objectClass: top
+
+# shioiri, group, Riec, TohokuUNV, JP
+dn: cn=shioiri,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: shioiri
+gidNumber: 154
+objectClass: posixGroup
+objectClass: top
+
+# shirai, group, Riec, TohokuUNV, JP
+dn: cn=shirai,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: shirai
+gidNumber: 147
+objectClass: posixGroup
+objectClass: top
+
+# siratori, group, Riec, TohokuUNV, JP
+dn: cn=siratori,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: siratori
+gidNumber: 128
+objectClass: posixGroup
+objectClass: top
+
+# sndm, group, Riec, TohokuUNV, JP
+dn: cn=sndm,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: sndm
+gidNumber: 116
+objectClass: posixGroup
+objectClass: top
+
+# staff, group, Riec, TohokuUNV, JP
+dn: cn=staff,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: staff
+gidNumber: 10
+objectClass: posixGroup
+objectClass: top
+
+# stop, group, Riec, TohokuUNV, JP
+dn: cn=stop,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: stop
+gidNumber: 199
+objectClass: posixGroup
+objectClass: top
+
+# suemitsu, group, Riec, TohokuUNV, JP
+dn: cn=suemitsu,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: suemitsu
+gidNumber: 106
+objectClass: posixGroup
+objectClass: top
+
+# sugiura, group, Riec, TohokuUNV, JP
+dn: cn=sugiura,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: sugiura
+gidNumber: 141
+objectClass: posixGroup
+objectClass: top
+
+# tamada, group, Riec, TohokuUNV, JP
+dn: cn=tamada,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: tamada
+gidNumber: 162
+objectClass: posixGroup
+objectClass: top
+
+# tty, group, Riec, TohokuUNV, JP
+dn: cn=tty,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: tty
+gidNumber: 4
+objectClass: posixGroup
+objectClass: top
+
+# uehara, group, Riec, TohokuUNV, JP
+dn: cn=uehara,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: uehara
+gidNumber: 115
+objectClass: posixGroup
+objectClass: top
+
+# wit, group, Riec, TohokuUNV, JP
+dn: cn=wit,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: wit
+gidNumber: 105
+objectClass: posixGroup
+objectClass: top
+
+# www-ga, group, Riec, TohokuUNV, JP
+dn: cn=www-ga,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: www-ga
+gidNumber: 83
+objectClass: posixGroup
+objectClass: top
+
+# wwwadm, group, Riec, TohokuUNV, JP
+dn: cn=wwwadm,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: wwwadm
+gidNumber: 81
+objectClass: posixGroup
+objectClass: top
+
+# wwwgst, group, Riec, TohokuUNV, JP
+dn: cn=wwwgst,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: wwwgst
+gidNumber: 89
+objectClass: posixGroup
+objectClass: top
+
+# yano, group, Riec, TohokuUNV, JP
+dn: cn=yano,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: yano
+gidNumber: 130
+objectClass: posixGroup
+objectClass: top
+
+# yasaka, group, Riec, TohokuUNV, JP
+dn: cn=yasaka,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: yasaka
+gidNumber: 102
+objectClass: posixGroup
+objectClass: top
+
+# zaidan, group, Riec, TohokuUNV, JP
+dn: cn=zaidan,ou=group,ou=Riec,o=TohokuUNV,c=JP
+cn: zaidan
+gidNumber: 170
+objectClass: posixGroup
+objectClass: top
+
+# hosts, Riec, TohokuUNV, JP
+dn: ou=hosts,ou=Riec,o=TohokuUNV,c=JP
+objectClass: organizationalUnit
+objectClass: top
+ou: hosts
+
+# networks, Riec, TohokuUNV, JP
+dn: ou=networks,ou=Riec,o=TohokuUNV,c=JP
+objectClass: organizationalUnit
+objectClass: top
+ou: networks
+
+# peopleOut, Riec, TohokuUNV, JP
+dn: ou=peopleOut,ou=Riec,o=TohokuUNV,c=JP
+objectClass: organizationalUnit
+objectClass: top
+ou: peopleOut
+
+# del2012, group, Riec, TohokuUNV, JP
+dn: cn=del2012,ou=group,ou=Riec,o=TohokuUNV,c=JP
+gidNumber: 198
+objectClass: posixGroup
+objectClass: top
+cn: del2012
+
+# people, Riec, TohokuUNV, JP
+dn: ou=people,ou=Riec,o=TohokuUNV,c=JP
+objectClass: organizationalUnit
+objectClass: top
+ou: people
+
+# a-satou, people, Riec, TohokuUNV, JP
+dn: uid=a-satou,ou=people,ou=Riec,o=TohokuUNV,c=JP
+cn: a-satou
+gecos: Akira Sato
+gidNumber: 155
+homeDirectory: /home/otsuji/a-satou
+loginShell: /bin/tcsh
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+sn: a-satou
+uid: a-satou
+uidNumber: 15540
+
