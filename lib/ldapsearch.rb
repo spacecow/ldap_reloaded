@@ -30,10 +30,11 @@ class Ldapsearch
         if people and line == "\n"
           people = false 
           if Account.exists?(username:hash[:username])
-            Account.find_by_username(hash[:username]).create_member(hash[:gid]) 
+            account = Account.find_by_username(hash[:username])
           else
-            Account.create(path:hash[:path], gid:hash[:gid], gidname:hash[:gidname], username:hash[:username], uid:hash[:uid], realname:hash[:realname])
+            account = Account.create(username:hash[:username], uid:hash[:uid], realname:hash[:realname])
           end
+          member = Member.create(path:hash[:path], gid:hash[:gid], gidname:hash[:gidname], account_id:account.id) 
         end
         if people
           if data = line.match(/gidNumber: (\d+)/)

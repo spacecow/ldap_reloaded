@@ -52,22 +52,48 @@ describe Ldapsearch do
       end
     end
 
-    context "creates no member if gid already exists for that member" do
+    context "creates a member if gid exists but for another user" do
+      before(:each) do
+        another_account = FactoryGirl.create(:account, username:"b-satou")
+        FactoryGirl.create(:member, gid:155, account:another_account)
+        @member_count = Member.count
+        Ldapsearch.read(@hash,@small_testfile)
+        @member = Member.last
+      end
+
+      it "increases no database member count" do
+        Member.count.should be(@member_count+1)
+      end
+      it "member path is set" do
+        @member.path.should eq "/home/otsuji/a-satou"
+      end
+      it "member gid is set" do
+        @member.gid.should eq 155
+      end
+      it "member gidname is set" do
+        @member.gidname.should eq "otsuji" 
+      end
+      it "member account_id is set" do
+        @member.account.should eq Account.last
+      end
+    end
+
+    context "creates no member if gid already exists for that user" do
       before(:each) do
         account = FactoryGirl.create(:account, username:"a-satou")
         FactoryGirl.create(:member, gid:155, account:account)
+        @account_count = Account.count
         @member_count = Member.count
         Ldapsearch.read(@hash,@small_testfile)
       end
 
       it "increases no database member count" do
-        Member.count.should be(@member_count)
+        Account.count.should eq(@account_count)
+        Member.count.should eq(@member_count)
       end
     end
 
-    pending "creates a member to an already existsing account" 
-
-    context "creates a member if gid does not exist" do
+    context "creates a member if gid nor user exist" do
       before(:each) do
         Ldapsearch.read(@hash,@small_testfile)
         @member = Member.last
