@@ -21,6 +21,7 @@ describe Day do
   describe "#generate_userlist" do
     before(:each) do
       @today = Date.parse("2012-06-22")
+      @tomorrow = Date.parse("2012-06-23")
     end
 
     it "raises an error if day already exists" do
@@ -35,12 +36,12 @@ describe Day do
       Day.last.date.should eq @today
     end
 
-    it "creates accounts and members" do
+    it "creates accounts and memberships" do
       lambda{
         lambda{ 
           Day.generate_userlist(@today, 'small_ldap_info.txt')
         }.should change(Account, :count).by(1)
-      }.should change(Member, :count).by(1)
+      }.should change(Membership, :count).by(1)
     end
 
     it "creates dailystats" do
@@ -48,18 +49,34 @@ describe Day do
       }.should change(Dailystat, :count).by(1)
     end
 
-    it "creates accounts and members for full ldap info", slow:true do
+    it "creates accounts and memberships for full ldap info", slow:true do
       lambda{
         lambda{ 
           Day.generate_userlist(@today, 'ldap_info.txt')
         }.should change(Account, :count).by(529)
-      }.should change(Member, :count).by(529)
+      }.should change(Membership, :count).by(529)
+    end
+    it "creates accounts and memberships for second ldap info", slow:true do
+      Day.generate_userlist(@today, 'ldap_info.txt')
+      lambda{
+        lambda{ 
+          Day.generate_userlist(@tomorrow, 'second_ldap_info.txt')
+        }.should change(Account, :count).by(2) #2 new accounts
+        Account.find_by_username('m-yama').memberships.count.should be(2)
+      }.should change(Membership, :count).by(3) #1 membership switch
     end
 
+
     it "creates dailystats for full ldap info", slow:true do
-        lambda{ 
+      lambda{ 
         Day.generate_userlist(@today, 'ldap_info.txt')
       }.should change(Dailystat, :count).by(529)
+    end
+    it "creates dailystats for second ldap info", slow:true do
+      Day.generate_userlist(@today, 'ldap_info.txt')
+      lambda{ 
+        Day.generate_userlist(@tomorrw, 'second_ldap_info.txt')
+      }.should change(Dailystat, :count).by(530)
     end
   end
 end

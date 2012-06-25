@@ -1,4 +1,4 @@
-class Member < ActiveRecord::Base
+class Membership < ActiveRecord::Base
   belongs_to :account
 
   has_many :dailystats

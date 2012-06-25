@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  has_many :members
+  has_many :memberships
 
   attr_accessible :realname, :uid, :username, :path, :gid, :gidname
 

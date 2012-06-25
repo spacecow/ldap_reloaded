@@ -5,7 +5,7 @@ FactoryGirl.define do
   factory :day do
   end
 
-  factory :member do
+  factory :membership do
     gid 1
   end
 end

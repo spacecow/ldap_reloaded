@@ -1,6 +1,6 @@
 class CreateMembers < ActiveRecord::Migration
   def change
-    create_table :members do |t|
+    create_table :memberships do |t|
       t.string :path
       t.integer :gid
       t.string :gidname

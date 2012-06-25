@@ -11,9 +11,9 @@ class Day < ActiveRecord::Base
       raise DayExistsException if Day.exists?(date:date_s)
       day = Day.create(date:date_s)
       hash = Ldapsearch.group_hash(file)
-      members = Ldapsearch.create_accounts_and_members(hash, file)
-      members.each do |member|
-        member.days << day
+      memberships = Ldapsearch.find_or_create_accounts_and_memberships(hash, file)
+      memberships.each do |membership|
+        membership.days << day
       end
     end
   end

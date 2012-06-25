@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(:version => 20120625055054) do
 
   create_table "dailystats", :force => true do |t|
     t.integer  "day_id"
-    t.integer  "member_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "membership_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "days", :force => true do |t|
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20120625055054) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "members", :force => true do |t|
+  create_table "memberships", :force => true do |t|
     t.string   "path"
     t.integer  "gid"
     t.string   "gidname"
