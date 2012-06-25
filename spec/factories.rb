@@ -6,5 +6,6 @@ FactoryGirl.define do
   end
 
   factory :member do
+    gid 1
   end
 end

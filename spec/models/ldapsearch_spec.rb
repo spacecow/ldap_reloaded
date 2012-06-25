@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Ldapsearch do
   before(:each) do
-    @testfile = 'test_full_ldap_info.txt'
-    @small_testfile = 'test_small_ldap_info.txt'
+    @testfile = 'ldap_info.txt'
+    @small_testfile = 'small_ldap_info.txt'
   end
 
   describe "#group_hash" do
@@ -13,7 +13,15 @@ describe Ldapsearch do
     end
   end
 
-  describe "read" do
+  describe "create_accounts_and_members for full test file" do
+    it "returns an array with members", slow:true do
+      hash = Ldapsearch.group_hash(@testfile)
+      members = Ldapsearch.create_accounts_and_members(hash,@testfile)
+      members.length.should be(529)
+    end
+  end
+
+  describe "create_accounts_and_members for small test file" do
     before(:each) do
       @member_count = Member.count
       @account_count = Account.count
@@ -24,7 +32,7 @@ describe Ldapsearch do
       before(:each) do
         FactoryGirl.create(:account, username:"a-satou")
         @account_count = Account.count
-        Ldapsearch.read(@hash,@small_testfile)
+        Ldapsearch.create_accounts_and_members(@hash,@small_testfile)
       end
 
       it "increases no database account count" do
@@ -34,7 +42,7 @@ describe Ldapsearch do
 
     context "creates an account if username does not exist" do
       before(:each) do
-        Ldapsearch.read(@hash,@small_testfile)
+        Ldapsearch.create_accounts_and_members(@hash,@small_testfile)
         @account = Account.last
       end
 
@@ -57,8 +65,8 @@ describe Ldapsearch do
         another_account = FactoryGirl.create(:account, username:"b-satou")
         FactoryGirl.create(:member, gid:155, account:another_account)
         @member_count = Member.count
-        Ldapsearch.read(@hash,@small_testfile)
-        @member = Member.last
+        members = Ldapsearch.create_accounts_and_members(@hash,@small_testfile)
+        @member = members.last
       end
 
       it "increases no database member count" do
@@ -84,7 +92,7 @@ describe Ldapsearch do
         FactoryGirl.create(:member, gid:155, account:account)
         @account_count = Account.count
         @member_count = Member.count
-        Ldapsearch.read(@hash,@small_testfile)
+        Ldapsearch.create_accounts_and_members(@hash,@small_testfile)
       end
 
       it "increases no database member count" do
@@ -95,7 +103,7 @@ describe Ldapsearch do
 
     context "creates a member if gid nor user exist" do
       before(:each) do
-        Ldapsearch.read(@hash,@small_testfile)
+        Ldapsearch.create_accounts_and_members(@hash,@small_testfile)
         @member = Member.last
       end
 

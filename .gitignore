@@ -13,4 +13,5 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/congit/database.yml
+/config/database.yml
+*.swp

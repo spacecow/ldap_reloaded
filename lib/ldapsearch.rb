@@ -20,8 +20,8 @@ class Ldapsearch
       return hash
     end
 
-    def read(group_hash, file = "ldap_info.txt")
-      people, hash = false, {}
+    def create_accounts_and_members(group_hash, file = "ldap_info.txt")
+      people, hash, members = false, {}, []
       File.open("data/#{file}").each do |line|
         if people_match(line) 
           people = true 
@@ -29,12 +29,9 @@ class Ldapsearch
         end 
         if people and line == "\n"
           people = false 
-          if Account.exists?(username:hash[:username])
-            account = Account.find_by_username(hash[:username])
-          else
-            account = Account.create(username:hash[:username], uid:hash[:uid], realname:hash[:realname])
-          end
-          member = Member.create(path:hash[:path], gid:hash[:gid], gidname:hash[:gidname], account_id:account.id) 
+          account = Account.find_or_create(hash[:username], hash[:uid], hash[:realname])
+          member = Member.create(path:hash[:path], gid:hash[:gid], gidname:hash[:gidname], account_id:account.id)
+          members << member if member.valid?
         end
         if people
           if data = line.match(/gidNumber: (\d+)/)
@@ -54,7 +51,8 @@ class Ldapsearch
             hash[:realname] = data[1]
           end
         end
-      end
+      end #File.open
+      members
     end #read
 
     def people_match(line); line.match(/ou=\"?people\"?/i) end
