@@ -1,0 +1,5 @@
+<%= title pl(:member,1) %>
+
+<%= render 'info', membership:@membership %>
+
+<%= render 'days/tabledays', days:@membership.days if @membership.days.present? %>

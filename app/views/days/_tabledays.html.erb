@@ -1,0 +1,9 @@
+<table id="days">
+  <tr>
+    <th><%= t(:day_date) %></th>
+    <th><%= t(:user_count) %></th>
+  </tr>
+  <% days.each do |day| %>
+    <%= render 'days/tableday', day:day %>
+  <% end %>
+</table>

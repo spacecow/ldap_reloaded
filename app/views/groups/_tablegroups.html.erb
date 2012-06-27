@@ -1,0 +1,10 @@
+<table id="groups">
+  <tr>
+    <th><%= sortable 'path', t(:path) %></th>
+    <th><%= sortable 'groups.gid', t(:gid) %></th>
+    <th><%= sortable 'groups.gidname', t(:gidname) %></th>
+  </tr>
+  <% memberships.each do |membership| %>
+    <%= render 'groups/tablegroup', membership:membership %>
+  <% end %>
+</table>

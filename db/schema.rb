@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625055054) do
+ActiveRecord::Schema.define(:version => 20120626014707) do
 
   create_table "accounts", :force => true do |t|
     t.string   "realname"
@@ -30,16 +30,22 @@ ActiveRecord::Schema.define(:version => 20120625055054) do
 
   create_table "days", :force => true do |t|
     t.date     "date"
-    t.integer  "users_count"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "user_count", :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  create_table "groups", :force => true do |t|
+    t.integer  "gid"
+    t.string   "gidname"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "memberships", :force => true do |t|
     t.string   "path"
-    t.integer  "gid"
-    t.string   "gidname"
     t.integer  "account_id"
+    t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

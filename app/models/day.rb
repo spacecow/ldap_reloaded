@@ -1,10 +1,10 @@
 class Day < ActiveRecord::Base
-  has_many :dailystats
-  has_many :members, :through => :dailystats
+  has_many :dailystats, :dependent => :destroy, :after_add => :inc_user_count
+  has_many :memberships, :through => :dailystats
 
   attr_accessible :date, :users_count
 
-  validates :date, uniqueness:true
+  validates :date, presence:true, uniqueness:true
 
   class << self
     def generate_userlist(date_s,file = "ldap_info.txt")
@@ -13,8 +13,19 @@ class Day < ActiveRecord::Base
       hash = Ldapsearch.group_hash(file)
       memberships = Ldapsearch.find_or_create_accounts_and_memberships(hash, file)
       memberships.each do |membership|
-        membership.days << day
+        day.memberships << membership
       end
     end
+
+    def generate_todays_userlist
+      generate_userlist(Date.today)
+    end
   end
+
+
+  private
+
+    def inc_user_count(dstat)
+      update_attribute(:user_count, user_count+1)
+    end
 end

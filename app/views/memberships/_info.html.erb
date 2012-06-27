@@ -1,0 +1,20 @@
+<div id="info">
+  <div id="username">
+    <span class="state"><%= t(:username) %></span>: <%= link_to membership.username, account_path(membership.account) %>
+  </div>
+  <div id="uid">
+    <span class="state"><%= t(:uid) %></span>: <%= membership.uid %>
+  </div>
+  <div id="realname">
+    <span class="state"><%= t(:name) %></span>: <%= membership.realname %>
+  </div>
+  <div id="path">
+    <span class="state"><%= t(:path) %></span>: <%= membership.path %>
+  </div>
+  <div id="gid">
+    <span class="state"><%= t(:gid) %></span>: <%= membership.gid %>
+  </div>
+  <div id="gidname">
+    <span class="state"><%= t(:gidname) %></span>: <%= link_to membership.gidname, group_path(membership.group) %>
+  </div>
+</div>

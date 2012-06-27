@@ -1,0 +1,3 @@
+<%= title "#{pl(:group,1)}: #{@group.gidname}(#{@group.gid})" %>
+
+<%= render 'accounts/tableaccounts', memberships:@memberships if @memberships.present? %>

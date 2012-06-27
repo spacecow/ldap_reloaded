@@ -1,3 +1,7 @@
 --- 
 4b300c: !ruby/object:Dooby::Task 
   todo: create an account with day's generate_userlist :done
+179a7f: !ruby/object:Dooby::Task 
+  todo: add group :doing
+135f63: !ruby/object:Dooby::Task 
+  todo: sort the other columns

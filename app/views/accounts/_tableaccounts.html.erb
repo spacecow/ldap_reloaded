@@ -1,0 +1,11 @@
+<table id="users">
+  <tr>
+    <th><%= sortable 'accounts.username', t(:username) %></th>
+    <th><%= sortable 'path', t(:path) %></th>
+    <th><%= sortable 'accounts.uid', t(:uid) %></th>
+    <th><%= sortable 'accounts.realname', t(:name) %></th>
+  </tr>
+  <% memberships.each do |membership| %>
+    <%= render 'accounts/tableaccount', membership:membership %>
+  <% end %>
+</table>

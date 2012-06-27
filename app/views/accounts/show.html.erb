@@ -1,0 +1,3 @@
+<%= title "#{pl(:user,1)}: #{@account.username}(#{@account.uid})" %>
+
+<%= render 'groups/tablegroups', memberships:@memberships if @memberships.present? %>

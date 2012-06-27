@@ -30,13 +30,9 @@ class Ldapsearch
         if people and line == "\n"
           people = false 
           account = Account.find_or_create(hash[:username], hash[:uid], hash[:realname])
-          #group = Group.create(gid:hash[:gid], gidname:hash[:gidname])
-          membership = Membership.create(path:hash[:path], gid:hash[:gid], gidname:hash[:gidname], account_id:account.id)
-          if membership.valid?
-            memberships << membership 
-          elsif account.memberships.present?
-            memberships << account.memberships.find_by_gid(hash[:gid]) 
-          end
+          group = Group.find_or_create(hash[:gid], hash[:gidname])
+          membership = Membership.find_or_create(hash[:path], account, group)
+          memberships << membership if membership.valid?
         end
         if people
           if data = line.match(/gidNumber: (\d+)/)

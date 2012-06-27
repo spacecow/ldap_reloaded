@@ -24,8 +24,9 @@ describe Ldapsearch do
   describe "find_or_create_accounts_and_memberships for small test file" do
     before(:each) do
       @membership_count = Membership.count
-      @account_count = Account.count
-      @hash = Ldapsearch.group_hash(@testfile)
+      @account_count    = Account.count
+      @group_count      = Group.count
+      @hash             = Ldapsearch.group_hash(@testfile)
     end
 
     context "creates no account if username already exists" do
@@ -60,36 +61,31 @@ describe Ldapsearch do
       end
     end
 
-    context "creates a membership if gid exists but for another user" do
+    context "creates a membership if group exists but no membership" do
       before(:each) do
-        another_account = FactoryGirl.create(:account, username:"b-satou")
-        FactoryGirl.create(:membership, gid:155, account:another_account)
+        group = FactoryGirl.create(:group, gid:155)
         @membership_count = Membership.count
-        memberships = Ldapsearch.find_or_create_accounts_and_memberships(@hash,@small_testfile)
-        @membership = memberships.last
+        @membership = Ldapsearch.find_or_create_accounts_and_memberships(@hash,@small_testfile).last
       end
 
-      it "increases no database membership count" do
+      it "increases the database membership count" do
         Membership.count.should be(@membership_count+1)
       end
       it "membership path is set" do
         @membership.path.should eq "/home/otsuji/a-satou"
       end
-      it "membership gid is set" do
-        @membership.gid.should eq 155
-      end
-      it "membership gidname is set" do
-        @membership.gidname.should eq "otsuji" 
-      end
       it "membership account_id is set" do
         @membership.account.should eq Account.last
       end
+      it "membership group_id is set" do
+        @membership.group.should eq Group.last
+      end
     end
 
-    context "creates no membership if gid already exists for that user" do
+    context "creates no membership if that group already exists for that user" do
       before(:each) do
         account = FactoryGirl.create(:account, username:"a-satou")
-        FactoryGirl.create(:membership, gid:155, account:account)
+        account.groups << FactoryGirl.create(:group, gid:155)
         @account_count = Account.count
         @membership_count = Membership.count
         Ldapsearch.find_or_create_accounts_and_memberships(@hash,@small_testfile)
@@ -103,8 +99,7 @@ describe Ldapsearch do
 
     context "creates a membership if gid nor user exist" do
       before(:each) do
-        Ldapsearch.find_or_create_accounts_and_memberships(@hash,@small_testfile)
-        @membership = Membership.last
+        @membership = Ldapsearch.find_or_create_accounts_and_memberships(@hash,@small_testfile).last
       end
 
       it "increases database membership count" do
@@ -113,14 +108,40 @@ describe Ldapsearch do
       it "membership path is set" do
         @membership.path.should eq "/home/otsuji/a-satou"
       end
-      it "membership gid is set" do
-        @membership.gid.should eq 155
-      end
-      it "membership gidname is set" do
-        @membership.gidname.should eq "otsuji" 
-      end
       it "membership account_id is set" do
         @membership.account.should eq Account.last
+      end
+      it "membership group_id is set" do
+        @membership.group.should eq Group.last
+      end
+    end
+
+    context "creates a group if gid does not exist" do
+      before(:each) do
+        Ldapsearch.find_or_create_accounts_and_memberships(@hash,@small_testfile)
+        @group = Group.last
+      end
+
+      it "increases database membership count" do
+        Group.count.should be(@group_count+1)
+      end
+      it "membership gid is set" do
+        @group.gid.should eq 155
+      end
+      it "membership gidname is set" do
+        @group.gidname.should eq "otsuji" 
+      end
+    end
+
+    context "creates no group if gid already exists" do
+      before(:each) do
+        FactoryGirl.create(:group, gid:155)
+        @group_count = Group.count
+        Ldapsearch.find_or_create_accounts_and_memberships(@hash,@small_testfile)
+      end
+
+      it "increases no database group count" do
+        Group.count.should eq(@group_count)
       end
     end
   end
