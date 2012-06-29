@@ -5,13 +5,24 @@ class Membership < ActiveRecord::Base
   has_many :dailystats
   has_many :days, :through => :dailystats
 
+  has_many :monthlystats
+  has_many :months, :through => :monthlystats
+
   attr_accessible :path, :account_id, :group_id
 
   validates :account_id, presence:true, :uniqueness => {:scope => :group_id}
   validates :group_id, presence:true
 
+  def first_date; first_day.date end
+  def first_day; first_dailystat.day end
+  def first_dailystat
+    dailystats.order('days.date').includes(:day).first
+  end
   def gid; group.gid end
   def gidname; group.gidname end
+  def has_monthlystat_for?(month)
+    months.include?(month)
+  end
   def realname; account.realname end
   def uid; account.uid end
   def username; account.username end

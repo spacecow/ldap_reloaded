@@ -3,6 +3,7 @@ class CreateDailystats < ActiveRecord::Migration
     create_table :dailystats do |t|
       t.integer :day_id
       t.integer :membership_id
+      t.integer :monthlystat_id
 
       t.timestamps
     end

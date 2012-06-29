@@ -18,7 +18,7 @@ describe "Days show" do
 
   context "with dailystats" do
     before(:each) do
-      Day.generate_userlist('2012-06-26','two_ldap_info.txt')
+      Day.generate_userlist(Date.parse('2012-06-26'),'two_ldap_info.txt')
       visit day_path(Day.last)
     end
 
@@ -53,7 +53,7 @@ describe "Days show" do
 
   context "sort on columns" do
     before(:each) do
-      Day.generate_userlist('2012-06-26','two_ldap_info.txt')
+      Day.generate_userlist(Date.parse('2012-06-26'),'two_ldap_info.txt')
       visit day_path(Day.last)
     end
 

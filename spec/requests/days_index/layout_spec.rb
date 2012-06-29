@@ -17,7 +17,7 @@ describe "Days index" do
 
   context "with dailystats" do
     before(:each) do
-      Day.generate_userlist('2012-06-26','small_ldap_info.txt')
+      Day.generate_userlist(Date.parse('2012-06-26'),'small_ldap_info.txt')
       visit days_path
     end
 

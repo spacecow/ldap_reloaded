@@ -2,12 +2,17 @@ en:
   day_date: 'Date'
   day:
     other: 'Days'
+  day_of_registration: 'Day of registration'
   gid: 'GID'
   gidname: 'Group name'
   group:
     one: 'Group'
   member:
     one: 'Member'
+  month:
+    other: 'Months'
+  report:
+    one: 'Report'
   uid: 'UID'
   username: 'Username'
   user:

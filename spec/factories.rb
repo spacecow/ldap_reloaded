@@ -7,6 +7,11 @@ FactoryGirl.define do
     date Date.today
   end
 
+  factory :dailystat do
+    day
+    membership
+  end
+
   factory :group do
     gid 999
   end
@@ -14,5 +19,12 @@ FactoryGirl.define do
   factory :membership do
     account
     group
+  end
+
+  factory :monthlystat do
+    membership
+  end
+
+  factory :month do
   end
 end

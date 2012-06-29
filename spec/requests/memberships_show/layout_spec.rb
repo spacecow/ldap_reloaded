@@ -9,7 +9,7 @@ describe "Days show" do
 
   context "with dailystats" do
     before(:each) do
-      Day.generate_userlist('2012-06-26','two_ldap_info.txt')
+      Day.generate_userlist(Date.parse('2012-06-26'),'two_ldap_info.txt')
       visit membership_path(Membership.last)
     end
 

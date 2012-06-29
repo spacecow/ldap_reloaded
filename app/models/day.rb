@@ -7,13 +7,26 @@ class Day < ActiveRecord::Base
   validates :date, presence:true, uniqueness:true
 
   class << self
-    def generate_userlist(date_s,file = "ldap_info.txt")
-      raise DayExistsException if Day.exists?(date:date_s)
-      day = Day.create(date:date_s)
+    def generate_userlist(date,file = "ldap_info.txt")
+      raise DayExistsException if Day.exists?(date:date)
+      day = Day.create(date:date)
       hash = Ldapsearch.group_hash(file)
       memberships = Ldapsearch.find_or_create_accounts_and_memberships(hash, file)
+
+      #create dailystats
       memberships.each do |membership|
         day.memberships << membership
+      end
+
+      #create monthlystats
+      month_date = date.strftime("%Y-%m-01")
+      month = Month.find_or_create_by_date(month_date) 
+
+      #day.memberships.each do |mship|
+      #  mship.create_or_update_monthlystat(month)
+      #end
+      day.dailystats.each do |dstat|
+        dstat.create_or_update_montlystat(month)
       end
     end
 

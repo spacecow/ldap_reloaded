@@ -54,7 +54,7 @@ end
 describe "Accounts show" do
   context "sort on columns" do
     before(:each) do
-      Day.generate_userlist('2012-06-26','account_ldap_info.txt')
+      Day.generate_userlist(Date.parse('2012-06-26'),'account_ldap_info.txt')
       visit account_path(Account.first)
     end
 

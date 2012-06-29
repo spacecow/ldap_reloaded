@@ -1,0 +1,8 @@
+<%= title pl(:report,1) %>
+
+<%= form_tag months_path, :method => :get do %>
+  <%= label_tag :start_month %>
+  <%= select_tag :start_month, options_from_collection_for_select(@months, 'id', 'date'), include_blank:true %>
+<% end %>
+
+<%= render 'months/tablemonths', mstats:@mstats if @mstats.present? %>

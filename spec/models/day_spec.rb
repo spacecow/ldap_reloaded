@@ -38,7 +38,7 @@ describe Day do
 
   describe "#generate_userlist" do
     before(:each) do
-      @today = Date.parse("2012-06-22")
+      @today = Date.parse("2012-06-01")
       @tomorrow = Date.parse("2012-06-23")
     end
 
@@ -51,6 +51,18 @@ describe Day do
     it "creates a day if none exists" do
       lambda{ Day.generate_userlist(@today, 'small_ldap_info.txt')
       }.should change(Day, :count).by(1)
+      Day.last.date.should eq @today
+    end
+
+    it "creates no month if already exists" do
+      FactoryGirl.create(:month, date:Date.parse('2012-06-01'))
+      lambda{Day.generate_userlist(@today, 'small_ldap_info.txt')
+      }.should change(Month,:count).by(0) 
+    end
+
+    it "creates a month if none exists" do
+      lambda{ Day.generate_userlist(@today, 'small_ldap_info.txt')
+      }.should change(Month,:count).by(1)
       Day.last.date.should eq @today
     end
 
@@ -67,46 +79,121 @@ describe Day do
       }.should change(Dailystat, :count).by(1)
     end
 
-    it "creates accounts and memberships for full ldap info", slow:true do
-      lambda do
-        lambda do
-          Day.generate_userlist(@today, 'ldap_info.txt')
-        end.should change(Account, :count).by(529)
-      end.should change(Membership, :count).by(529)
-    end
-    it "creates accounts and memberships for second ldap info", slow:true do
-      Day.generate_userlist(@today, 'ldap_info.txt')
-      lambda{
-        lambda{ 
-          Day.generate_userlist(@tomorrow, 'second_ldap_info.txt')
-        }.should change(Account, :count).by(2) #2 new accounts
-        Account.find_by_username('m-yama').memberships.count.should be(2)
-      }.should change(Membership, :count).by(3) #1 membership switch
+    context "monthlystats gets" do
+      context "created, if new month for membership" do
+        before(:each) do
+          @mstat_count = Monthlystat.count
+          Day.generate_userlist(@today, 'small_ldap_info.txt')
+          @mstat = Monthlystat.last
+        end
+
+        it "database count is updated" do
+          Monthlystat.count.should be(@mstat_count+1)
+        end
+        it "month_id is set" do
+          @mstat.month_id.should be(Month.last.id) 
+        end
+        it "membership_id is set" do
+          @mstat.membership_id.should be(Membership.last.id) 
+        end
+        it "dailystat_id is set" do
+          Dailystat.last.monthlystat.should eq(@mstat)
+        end
+        it "day_count is set" do
+          @mstat.day_count.should be(1)
+        end
+        it "day_of_registration is set" do
+          @mstat.day_of_registration.should eq(@today)
+        end
+      end
+
+      context "not created, if it already exists for membership" do
+        before(:each) do
+          account      = FactoryGirl.create(:account, username:'a-satou')
+          group        = FactoryGirl.create(:group, gid:155)
+          @membership  = FactoryGirl.create(:membership, account:account, group:group)
+
+          @day         = FactoryGirl.create(:day,date:@today)
+          @day.memberships << @membership
+
+          @month       = FactoryGirl.create(:month,date:@today)
+          @membership.months << @month
+
+          tomorrow     = @today + 1.day
+          @mstat_count = Monthlystat.count
+          Day.generate_userlist(tomorrow, 'small_ldap_info.txt')
+          @mstat       = Monthlystat.last
+        end
+
+        it "database count is updated" do
+          Monthlystat.count.should be(@mstat_count)
+        end
+        it "month_id is set" do
+          @mstat.month_id.should be(@month.id) 
+        end
+        it "membership_id is set" do
+          @mstat.membership_id.should be(@membership.id) 
+        end
+        it "dailystat_id is set" do
+          Dailystat.last.monthlystat.should eq(@mstat)
+        end
+        it "day_count is set" do
+          @mstat.day_count.should be(2)
+        end
+        it "day_of_registration is set" do
+          @mstat.day_of_registration.should eq(@today)
+        end
+      end
     end
 
-    it "creates groups for full ldap info", slow:true do
-      lambda do
-        Day.generate_userlist(@today, 'ldap_info.txt')
-      end.should change(Group, :count).by(55)
-    end
-    it "creates groups for second ldap info", slow:true do
+    it "full&second ldap info, for accounts, memberships, groups, dailystats", slow:true do
+      @account_count    = Account.count
+      @membership_count = Membership.count
+      @group_count      = Group.count
+      @dstat_count      = Dailystat.count
+      @day_count      = Day.count
+      @mstat_count      = Monthlystat.count
+      @month_count      = Month.count
       Day.generate_userlist(@today, 'ldap_info.txt')
-      lambda do
-        Day.generate_userlist(@tomorrow, 'second_ldap_info.txt')
-      end.should change(Group, :count).by(0)
-    end
-
-
-    it "creates dailystats for full ldap info", slow:true do
-      lambda{ 
-        Day.generate_userlist(@today, 'ldap_info.txt')
-      }.should change(Dailystat, :count).by(529)
-    end
-    it "creates dailystats for second ldap info", slow:true do
-      Day.generate_userlist(@today, 'ldap_info.txt')
-      lambda{ 
-        Day.generate_userlist(@tomorrw, 'second_ldap_info.txt')
-      }.should change(Dailystat, :count).by(530)
+      Account.count.should eq(@account_count + 529)
+      p "created accounts"
+      Membership.count.should eq(@membership_count + 529)
+      p "created memberships"
+      Group.count.should eq(@group_count + 55)
+      p "created groups"
+      Dailystat.count.should eq(@dstat_count + 529)
+      p "created dailystats"
+      Day.count.should eq(@day_count + 1)
+      p "created days"
+      Monthlystat.count.should eq(@mstat_count + 529)
+      p "created monthlystats"
+      Month.count.should eq(@month_count + 1)
+      p "created months"
+      @account_count    = Account.count
+      @membership_count = Membership.count
+      @group_count      = Group.count
+      @dstat_count      = Dailystat.count
+      @day_count      = Day.count
+      @mstat_count      = Monthlystat.count
+      @month_count      = Month.count
+      Day.generate_userlist(@tomorrow, 'second_ldap_info.txt')
+      Account.count.should eq(@account_count + 2)
+      p "created missing accounts"
+      # 1 membership switch + 2 accounts
+      Membership.count.should eq(@membership_count + 3)
+      p "created missing memberships"
+      # no new groups
+      Group.count.should eq(@group_count)
+      p "created missing groups"
+      Dailystat.count.should eq(@dstat_count + 530)
+      p "created missing dailystats"
+      Day.count.should eq(@day_count + 1)
+      p "created missing days"
+      # no new months
+      Monthlystat.count.should eq(@mstat_count + 3)
+      p "created missing monthlystats"
+      Month.count.should eq(@month_count)
+      p "created missing months"
     end
   end
 end

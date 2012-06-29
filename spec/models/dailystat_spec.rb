@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Dailystat do
+
   context "create" do
     before(:each) do
       @day = FactoryGirl.create(:day)

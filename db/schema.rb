@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626014707) do
+ActiveRecord::Schema.define(:version => 20120628075749) do
 
   create_table "accounts", :force => true do |t|
     t.string   "realname"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(:version => 20120626014707) do
   create_table "dailystats", :force => true do |t|
     t.integer  "day_id"
     t.integer  "membership_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "monthlystat_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "days", :force => true do |t|
@@ -46,6 +47,21 @@ ActiveRecord::Schema.define(:version => 20120626014707) do
     t.string   "path"
     t.integer  "account_id"
     t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "monthlystats", :force => true do |t|
+    t.integer  "day_count",           :default => 1
+    t.date     "day_of_registration"
+    t.integer  "month_id"
+    t.integer  "membership_id"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  create_table "months", :force => true do |t|
+    t.date     "date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
