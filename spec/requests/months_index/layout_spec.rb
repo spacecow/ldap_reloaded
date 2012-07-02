@@ -18,26 +18,75 @@ describe "Months index" do
       selected_value("Start month").should be_blank
     end
 
-    #it "from-month contains all the reports" do
-    #  options(:start_month).should eq "BLANK" 
-    #end
+    it "from-month contains all the reports" do
+      options("Start month").should eq "BLANK" 
+    end
 
+    it "has a end-month selector" do
+      selected_value("End month").should be_blank
+    end
+
+    it "end-month contains all the reports" do
+      options("End month").should eq "BLANK" 
+    end
+
+    it "has a submit button" do
+      page.should have_button("Go")
+    end
   end
 
-  context "with reports", focus:true do
+  context "selector, with reports" do
     before(:each) do
+      Day.generate_userlist(Date.parse('2012-05-26'),'two_ldap_info.txt')
       Day.generate_userlist(Date.parse('2012-06-26'),'two_ldap_info.txt')
-      visit months_path(start_month:Month.last.id)
+      visit months_path
+      select "2012-05-01", from:"Start month"
+      select "2012-06-30", from:"End month"
+      click_button "Go"
     end
 
     it "has a from-month selector" do
-      selected_value("Start month").should be_blank
+      selected_value("Start month").should eq(Month.first.id.to_s) 
     end
 
     it "from-month contains all the reports" do
-      options(:start_month).should eq "BLANK, 2011-11-01" 
+      options("Start month").should eq "BLANK, 2012-06-01, 2012-05-01" 
     end
 
+    it "has a end-month selector" do
+      selected_value("End month").should eq(Month.last.id.to_s) 
+    end
+
+    it "end-month contains all the reports" do
+      options("End month").should eq "BLANK, 2012-06-30, 2012-05-31" 
+    end
+
+    it "has one row in the table" do
+      tablemaps.should eq [[['a-satou', '/home/otsuji/a-satou', '155', 'otsuji', '2', '0', '2012-05-26'],['a-suzu', '/home/ohno/a-suzu', '131', 'ohno', '2', '0', '2012-05-26']]]
+    end
+  end
+
+  context "with reports" do
+    before(:each) do
+      Day.generate_userlist(Date.parse('2012-07-02'),'two_ldap_info.txt')
+      visit months_path
+    end
+
+    it "has a from-month selector" do
+      selected_value("Start month").should eq(Month.first.id.to_s) 
+    end
+
+    it "from-month contains all the reports" do
+      options("Start month").should eq "BLANK, 2012-07-01" 
+    end
+
+    it "has a end-month selector" do
+      selected_value("End month").should eq(Month.last.id.to_s) 
+    end
+
+    it "end-month contains all the reports" do
+      options("End month").should eq "BLANK, 2012-07-31" 
+    end
     it "has a report table" do
       page.should have_a_table('report')
     end
@@ -47,7 +96,7 @@ describe "Months index" do
     end
 
     it "has one row in the table" do
-      tablemaps.should eq [[['a-satou', '/home/otsuji/a-satou', '155', 'otsuji', '1', '0', '2012-06-26'],['a-suzu', '/home/ohno/a-suzu', '131', 'ohno', '1', '0', '2012-06-26']]]
+      tablemaps.should eq [[['a-satou', '/home/otsuji/a-satou', '155', 'otsuji', '1', '0', '2012-07-02'],['a-suzu', '/home/ohno/a-suzu', '131', 'ohno', '1', '0', '2012-07-02']]]
     end
 
     it "has a link to the user's show page" do

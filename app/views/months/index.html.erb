@@ -2,7 +2,10 @@
 
 <%= form_tag months_path, :method => :get do %>
   <%= label_tag :start_month %>
-  <%= select_tag :start_month, options_from_collection_for_select(@months, 'id', 'date'), include_blank:true %>
+  <%= select_tag :start_month, options_from_collection_for_select(@months, 'id', 'date', @start_month && @start_month.id), include_blank:true %>
+  <%= label_tag :end_month %>
+  <%= select_tag :end_month, options_from_collection_for_select(@months, 'id', 'end_date', @end_month && @end_month.id), include_blank:true %>
+  <%= submit_tag t(:go) %>
 <% end %>
 
 <%= render 'months/tablemonths', mstats:@mstats if @mstats.present? %>

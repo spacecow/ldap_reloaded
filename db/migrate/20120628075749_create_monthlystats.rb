@@ -6,6 +6,11 @@ class CreateMonthlystats < ActiveRecord::Migration
       t.integer :month_id
       t.integer :membership_id
 
+      #t.string :username
+      #t.string :path
+      #t.string :gid
+      #t.string :gidname
+
       t.timestamps
     end
   end

@@ -5,6 +5,7 @@ en:
   day_of_registration: 'Day of registration'
   gid: 'GID'
   gidname: 'Group name'
+  go: 'Go'
   group:
     one: 'Group'
   member:
@@ -13,6 +14,7 @@ en:
     other: 'Months'
   report:
     one: 'Report'
+    other: 'Reports'
   uid: 'UID'
   username: 'Username'
   user:

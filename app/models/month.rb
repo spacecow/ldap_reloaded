@@ -6,4 +6,7 @@ class Month < ActiveRecord::Base
 
   validates :date, uniqueness:true, presence:true
 
+  def end_date
+    date.end_of_month
+  end
 end
