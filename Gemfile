@@ -4,6 +4,7 @@ gem 'rails', '3.2.6'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'whenever', :require => false
+gem 'capybara'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,7 +25,6 @@ group :test do
   gem 'guard'
   gem 'guard-rspec'
   gem 'factory_girl_rails' #, '1.2.0'
-  gem 'capybara'
   gem 'launchy'
 end
 
