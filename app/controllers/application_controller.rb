@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include BasicApplicationController
 
   rescue_from Exception do |ex|
-    ErrorMailer.error_log.deliver
+    #ErrorMailer.error_log.deliver
   end
 
   protect_from_forgery
