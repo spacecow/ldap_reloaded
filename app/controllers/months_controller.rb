@@ -34,8 +34,11 @@ class MonthsController < ApplicationController
 
       @mstats = hash.values.sort_by{|e| e.send(sort_column)}
       @mstats = @mstats.reverse if params[:direction] == 'desc' 
-       
-      #@mstats = @start_month.monthlystats.order(sort_column+" "+sort_direction).includes({:membership => [:account,:group]}) if @start_month
+      
+      respond_to do |f|
+        f.html
+        f.csv { render text: to_csv(@mstats) }
+      end
     end
   end
 
@@ -47,5 +50,14 @@ class MonthsController < ApplicationController
 
     def sort_direction
       %w(asc desc).include?(params[:direction]) ? params[:direction] : 'asc'
+    end
+
+    def to_csv(mstats)
+      CSV.generate do |csv|
+        csv << [t(:username), t(:path), t(:gid), t(:gidname), pl(:day), pl(:month), t(:day_of_registration)]
+        mstats.each do |mstat|
+          csv << [mstat.username, mstat.path, mstat.gid, mstat.gidname, mstat.day_count, mstat.month_count, mstat.day_of_registration]
+        end
+      end
     end
 end
