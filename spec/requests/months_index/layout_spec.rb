@@ -45,6 +45,19 @@ describe "Months index" do
       click_button "Go"
     end
 
+    it "has a CSV link" do
+      page.should have_link 'CSV'
+      click_link 'CSV'
+      page.current_path.should eq months_path(format:'csv')
+    end
+
+    it "has a XLS link" do
+      page.should have_link 'Excel'
+      click_link 'Excel'
+      page.current_path.should eq months_path(format:'xls')
+    end
+
+
     it "has a from-month selector" do
       selected_value("Start month").should eq(Month.first.id.to_s) 
     end

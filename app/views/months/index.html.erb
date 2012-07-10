@@ -1,7 +1,10 @@
 <%= title pl(:report,1) %>
 
-Download
-<%= link_to 'CSV', months_path(start_month:@start_month, end_month:@end_month, sort:params[:sort], direction:params[:direction], format:'csv') %>
+<p id="download">
+  Download
+  <%= link_to 'CSV', months_path(start_month:@start_month, end_month:@end_month, sort:params[:sort], direction:params[:direction], format:'csv') %>
+  <%= link_to 'Excel', months_path(start_month:@start_month, end_month:@end_month, sort:params[:sort], direction:params[:direction], format:'xls') %>
+</p>
 
 <%= form_tag months_path, :method => :get do %>
   <%= label_tag :start_month %>
